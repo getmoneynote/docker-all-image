@@ -1,0 +1,31 @@
+FROM ubuntu:23.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update
+RUN apt-get install -y --no-install-recommends openjdk-17-jre
+RUN apt-get install -y nginx
+
+COPY ./api/*.jar /app/app.jar
+
+COPY ./nginx/default /etc/nginx/sites-available/default
+COPY ./phpmyadmin/ /var/www/html
+RUN chown -R www-data:www-data /var/www/html
+
+COPY ./nginx/pc.conf /etc/nginx/sites-available/pc.conf
+COPY ./pc/ /var/www/pc
+RUN ln -s /etc/nginx/sites-available/pc.conf /etc/nginx/sites-enabled/
+RUN chown -R www-data:www-data /var/www/pc
+
+COPY ./nginx/h5.conf /etc/nginx/sites-available/h5.conf
+COPY ./h5/ /var/www/h5
+RUN ln -s /etc/nginx/sites-available/h5.conf /etc/nginx/sites-enabled/
+RUN chown -R www-data:www-data /var/www/h5
+
+WORKDIR /app
+
+CMD service nginx start && java -jar app.jar
+
+EXPOSE 9092
+EXPOSE 81
+EXPOSE 82

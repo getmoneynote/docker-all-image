@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  moneywhere:
+    build: .
+    env_file: api.env
+    ports:
+      - "43742:9092"
+      - "43743:81"
+      - "43744:82"
