@@ -33,3 +33,4 @@ CMD service php8.1-fpm start && service mysql start && service nginx start && ja
 
 EXPOSE 3306
 EXPOSE 80
+
