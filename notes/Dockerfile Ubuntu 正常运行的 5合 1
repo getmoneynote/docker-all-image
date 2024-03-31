@@ -18,7 +18,7 @@ RUN service mysql start
 
 # 设置root密码
 # RUN service mysql start && mysql -e "CREATE USER 'root2'@'%' IDENTIFIED BY '111111';GRANT ALL PRIVILEGES ON *.* TO 'root2'@'%';FLUSH PRIVILEGES;"
-RUN service mysql start && mysql -e "CREATE DATABASE IF NOT EXISTS moneywhere CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+RUN service mysql start && mysql -e "CREATE DATABASE IF NOT EXISTS moneynote CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
 RUN service mysql start && mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '78p7gkc1'; use mysql;update user set host='%' where user='root';FLUSH PRIVILEGES;"
 
 COPY ./api/*.jar /app/app.jar
